@@ -47,21 +47,36 @@ class CustomButtonWidget extends StatelessWidget {
               // ignore: use_build_context_synchronously
               ? showDialog(
                   context: context,
-                  builder: (context) => const AlertDialog(
+                  builder: (context) => AlertDialog(
                     backgroundColor: Colors.amber,
-                    content: Text(
+                    content: const Text(
                       'Message sent successfully !',
-                      style: AppFonts.textStyle,
                     ),
+                    actions: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                    ],
                   ),
                 )
               // ignore: use_build_context_synchronously
               : showDialog(
                   context: context,
-                  builder: (context) => const AlertDialog(
+                  builder: (context) => AlertDialog(
                     backgroundColor: Colors.red,
-                    icon: Icon(Icons.error),
-                    title: Text('Dio Error !'),
+                    icon: const Icon(Icons.error),
+                    title: const Text('Dio Error !'),
+                    actions: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                    ],
                   ),
                 );
         },
