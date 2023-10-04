@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lesson54_provider_email_app/provider/email_provider.dart';
 import 'package:lesson54_provider_email_app/ui/fonts/app_fonts.dart';
+import 'package:lesson54_provider_email_app/ui/widgets/email_field_widget.dart';
+import 'package:lesson54_provider_email_app/ui/widgets/message_field_widget.dart';
 import 'package:provider/provider.dart';
 import '../widgets/custom_button_widget.dart';
 import '../widgets/name_textfield_widget.dart';
 import '../widgets/phone_field_widget.dart';
-import '../widgets/textfield_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -48,22 +49,16 @@ class HomePage extends StatelessWidget {
                     controllerLastName: controllerLastName,
                   ),
                   const SizedBox(height: 25),
-                  TextFieldWidget(
+                  EmailFieldWidget(
                     controller: controllerEmail,
-                    hintText: 'yourmail@gmail.com',
-                    labelText: 'E-mail',
-                    suffixIcon: const Icon(Icons.email_outlined),
                   ),
                   const SizedBox(height: 25),
                   PhoneFieldWidget(
-                    controllerPhone: controllerPhone,
+                    controller: controllerPhone,
                   ),
                   const SizedBox(height: 15),
-                  TextFieldWidget(
+                  MessageFieldWidget(
                     controller: controllerMessage,
-                    hintText: 'Your message',
-                    labelText: 'Message',
-                    maxLines: 7,
                   ),
                   const SizedBox(height: 40),
                   CustomButtonWidget(

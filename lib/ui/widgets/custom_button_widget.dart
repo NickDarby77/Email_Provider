@@ -34,51 +34,75 @@ class CustomButtonWidget extends StatelessWidget {
           ),
         ),
         onPressed: () async {
-          await vm.sendMessage(
-            model: EmailModel(
-              name: controllerName.text,
-              lastName: controllerLastName.text,
-              email: controllerEmail.text,
-              phone: controllerPhone.text,
-              message: controllerMessage.text,
-            ),
-          );
-          vm.isSuccess
-              // ignore: use_build_context_synchronously
-              ? showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    backgroundColor: Colors.amber,
-                    content: const Text(
-                      'Message sent successfully !',
+          if (!controllerEmail.text.contains('@') ||
+              controllerMessage.text.isEmpty ||
+              controllerLastName.text.isEmpty ||
+              controllerName.text.isEmpty) {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) => const SizedBox(
+                height: 100,
+                child: Card(
+                    color: Colors.cyan,
+                    child: Center(
+                      child: Text(
+                        'Required fields must be filled',
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    )),
+              ),
+            );
+          } else {
+            await vm.sendMessage(
+              model: EmailModel(
+                name: controllerName.text,
+                lastName: controllerLastName.text,
+                email: controllerEmail.text,
+                phone: controllerPhone.text,
+                message: controllerMessage.text,
+              ),
+            );
+            vm.isSuccess
+                // ignore: use_build_context_synchronously
+                ? showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      backgroundColor: Colors.amber,
+                      content: const Text(
+                        'Message sent successfully !',
+                      ),
+                      actions: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.close),
+                        ),
+                      ],
                     ),
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.close),
-                      ),
-                    ],
-                  ),
-                )
-              // ignore: use_build_context_synchronously
-              : showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    backgroundColor: Colors.red,
-                    icon: const Icon(Icons.error),
-                    title: const Text('Dio Error !'),
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.close),
-                      ),
-                    ],
-                  ),
-                );
+                  )
+                // ignore: use_build_context_synchronously
+                : showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      backgroundColor: Colors.red,
+                      icon: const Icon(Icons.error),
+                      title: const Text('Dio Error !'),
+                      actions: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.close),
+                        ),
+                      ],
+                    ),
+                  );
+          }
         },
         child: const Text(
           'Enter',

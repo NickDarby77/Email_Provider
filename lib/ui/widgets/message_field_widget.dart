@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lesson54_provider_email_app/ui/fonts/app_fonts.dart';
 
-class TextFieldWidget extends StatefulWidget {
-  const TextFieldWidget({
+class MessageFieldWidget extends StatefulWidget {
+  const MessageFieldWidget({
     super.key,
-    required this.hintText,
-    required this.labelText,
-    this.maxLines,
-    this.suffixIcon,
-    this.prefixIcon,
     required this.controller,
   });
 
-  final String labelText;
-  final String hintText;
-  final int? maxLines;
-  final Icon? suffixIcon;
-  final Icon? prefixIcon;
   final TextEditingController controller;
 
   @override
-  State<TextFieldWidget> createState() => _TextFieldWidgetState();
+  State<MessageFieldWidget> createState() => _MessageFieldWidgetState();
 }
 
-class _TextFieldWidgetState extends State<TextFieldWidget> {
+class _MessageFieldWidgetState extends State<MessageFieldWidget> {
   String? errorText;
 
   @override
@@ -36,22 +26,20 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               if (value.isNotEmpty) {
                 errorText = null;
               } else {
-                errorText = 'Field must contain @ or cannot be empty';
+                errorText = 'Message cannot be empty';
               }
             });
           },
-          maxLines: widget.maxLines,
+          maxLines: 7,
           controller: widget.controller,
           decoration: InputDecoration(
             errorText: errorText,
-            prefixIcon: widget.prefixIcon,
-            suffixIcon: widget.suffixIcon,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             label: RichText(
-              text: TextSpan(
-                text: widget.labelText,
+              text: const TextSpan(
+                text: 'Message',
                 style: AppFonts.labelStyle,
-                children: const [
+                children: [
                   TextSpan(
                     text: ' *',
                     style: TextStyle(color: Colors.red),
@@ -59,7 +47,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 ],
               ),
             ),
-            hintText: widget.hintText,
+            hintText: 'Your message',
             hintStyle: AppFonts.hintStyle,
             contentPadding: const EdgeInsets.all(16),
             border: OutlineInputBorder(

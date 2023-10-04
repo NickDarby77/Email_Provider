@@ -5,15 +5,15 @@ import '../fonts/app_fonts.dart';
 class PhoneFieldWidget extends StatelessWidget {
   const PhoneFieldWidget({
     super.key,
-    required this.controllerPhone,
+    required this.controller,
   });
 
-  final TextEditingController controllerPhone;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return IntlPhoneField(
-      controller: controllerPhone,
+      controller: controller,
       dropdownIconPosition: IconPosition.trailing,
       flagsButtonPadding: const EdgeInsets.only(left: 11),
       initialCountryCode: 'KG',
